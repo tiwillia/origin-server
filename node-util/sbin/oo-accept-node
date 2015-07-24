@@ -742,7 +742,7 @@ def check_system_httpd_configs
     if mod_vhost && has_framework
       vhost_file = Dir.glob(File.join($CONF.get('OPENSHIFT_HTTP_CONF_DIR'), "#{u.name}_*_0_*.conf"))[0]
       if vhost_file
-        vhost_dir = vhost_file.gsub(/(\.conf)$/, "").sub("_0_", "_")
+        vhost_dir = vhost_file.gsub(/(([0-9a-zA-Z]+)_0_([0-9a-zA-Z]+)(_ha)?\.conf)$/, "\\2_\\3")
         if File.directory?(vhost_dir)
           vhost_dir_files = Dir.glob(File.join(vhost_dir, "*.conf"))
           unless vhost_dir_files.empty?
